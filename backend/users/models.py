@@ -15,8 +15,8 @@ class UserAccountManager(BaseUserManager):
         user = self.model(
             username=username,
         )
-        user.set_password(make_password(username))
-        print(make_password(password))
+        user.set_password(username)
+        print(password)
         user.save(using=self._db)
 
         return user  
