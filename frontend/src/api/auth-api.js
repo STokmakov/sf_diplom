@@ -1,28 +1,29 @@
 import {instance} from "./api";
 
- 
 
 export const authAPI = {
-    
-    info(token) {
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-        return instance.get(`account/info`, config).then((res) => {
-            console.log(res);
-            console.log("Account info is received successfully");
-            return res.data.eventFiltersInfo;
-          })
-          .catch((e) => console.log("Failed receiving data..."));
-      },
-
-    
+     
     login(username, password) {
         return instance.post(`token/`, {username, password})
         .catch((e) => {
-            console.log({username, password});
             console.log("Failed login...");
             return e;
         })
-    }
+    },
+    
+    refresh(refresh) {
+        return instance.post(`token/refresh`, {refresh})
+        .catch((e) => {
+            console.log("Failed refresh...");
+            return e;
+            })
+        },
+    
+    verify(access) {
+        return instance.post(`token/verify`, {access})
+        .catch((e) => {
+            console.log("Failed verify...");
+            return e;
+            })
+        }
 }
