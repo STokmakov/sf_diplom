@@ -9,5 +9,5 @@ class RetriveUserView(ListAPIView):
     # permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializer.UserSerializer
     queryset = models.UserAccount.objects.all()
-    filter_backends = (DjangoFilterBackend, )
-    filter_fields = ('username', )
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['username']
