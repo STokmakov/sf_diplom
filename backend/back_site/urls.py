@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(),),
     path('api/token/verify/', TokenVerifyView.as_view(),),
     path('api/users/', include('users.urls')),
+    path('api/app/', include('app.urls')),
     path('admin/', admin.site.urls),
 ]
