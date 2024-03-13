@@ -24,8 +24,8 @@ const InfoContainer = (props) => {
     }
   
   const mapStateToProps = (state) => ({
-    usedCompanyCount: state.user.usedCompanyCount,
-    companyLimit: state.user.companyLimit
+    // usedCompanyCount: state.user.usedCompanyCount,
+    // companyLimit: state.user.companyLimit
 
   });
 

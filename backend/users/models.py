@@ -1,18 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin, Group
 from django.contrib.auth.hashers import make_password
 
-class Manager(models.Model):
-    name = models.CharField(max_length=128, unique=True
-    description = models.TextField()
-
-
-    def __str__(self):
-        return f'{self.name}'
-    
-    class Meta:
-        verbose_name = 'Менеджер'
-        verbose_name_plural = 'Менеджеры'
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, username, password=None):
@@ -25,6 +14,7 @@ class UserAccountManager(BaseUserManager):
         user = self.model(
             username=username,
         )
+        password=make_password(password)
         user.set_password(password)
         print(password)
         user.save(using=self._db)
@@ -42,7 +32,6 @@ class UserAccountManager(BaseUserManager):
 
         user.is_staff = True
         user.is_superuser = True
-        user.role_auth = False
         user.save(using=self._db)
 
         return user  
@@ -51,10 +40,8 @@ class UserAccountManager(BaseUserManager):
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     
     username = models.CharField(max_length=255, unique=True)
-    # role_auth = models.OneToOneField(Role, on_delete=models.DO_NOTHING, default=False) 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    
     
     objects = UserAccountManager()
 
@@ -67,11 +54,10 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
     
 class ServiceCompany(models.Model):
-    name = models.OneToOneField(UserAccount, on_delete=models.CASCADE, verbose_name='Пользователь')
-    description = models.TextField()
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+    name = models.ForeignKey(UserAccount, on_delete=models.CASCADE, verbose_name='Пользователь')
 
     def __str__(self):
         return f'{self.name}'
@@ -79,11 +65,10 @@ class ServiceCompany(models.Model):
     class Meta:
         verbose_name = 'Сервисная компания'
         verbose_name_plural = 'Сервисные компании'
+
     
 class Client(models.Model):
     name = models.OneToOneField(UserAccount, on_delete=models.CASCADE, verbose_name='Пользователь')
-    description = models.TextField()
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name}'
@@ -92,14 +77,15 @@ class Client(models.Model):
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
 
+
 class Manager(models.Model):
     name = models.OneToOneField(UserAccount, on_delete=models.CASCADE, verbose_name='Пользователь')
-    description = models.TextField()
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return f'{self.name}'
     
     class Meta:
         verbose_name = 'Менеджер'
         verbose_name_plural = 'Менеджеры'
+
+

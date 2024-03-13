@@ -16,7 +16,7 @@ const Info = (props) => {
                     Использовано компаний
                 </td>
                 <td className={css.usedCount}>
-                    {props.usedCompanyCount}
+                    {/* {props.usedCompanyCount} */}
                 </td>
             </tr>
             <tr>
@@ -24,7 +24,7 @@ const Info = (props) => {
                     Лимит по компаниям
                 </td>
                 <td className={css.limitCount}>
-                   { props.companyLimit } 
+                   {/* { props.companyLimit }  */}
                 </td>
 
             </tr>

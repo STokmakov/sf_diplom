@@ -1,7 +1,6 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import appReducer from "@store/app-reducer";
 import authReducer from "@store/auth-reducer";
-import userReducer from "@store/user-reducer";
 
 import thunkMiddleware, {ThunkAction} from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
@@ -17,7 +16,6 @@ const persistConfig = {
 let reducers = combineReducers({
   app: appReducer,
   token: authReducer,
-  user: userReducer,
   form: formReducer,
 });
 const persistedReducer = persistReducer(persistConfig, reducers)

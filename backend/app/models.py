@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import Client, ServiceCompany
 
+
 # Справочники
 
 class VehicleModel(models.Model):
@@ -190,9 +191,6 @@ class Complaint(models.Model):
         verbose_name = 'Рекламации'
         verbose_name_plural = 'Рекламации'
         ordering = ['-dateOfRefusal']
-    
-
-
 
 
 

@@ -148,6 +148,7 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = 'users.UserAccount'
 
 CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
+
 CORS_ALLOWED_ORIGIN_REGEXES = [
     '*',
 ]
@@ -156,5 +157,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
 
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
