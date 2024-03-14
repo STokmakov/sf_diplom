@@ -26,26 +26,44 @@ export const authAPI = {
             return e;
             })
         },
-
+    
     me(username, access) {
-        console.log('test='+username)
-        return instance.get(`users/me?username=`+ username, {access})
-        .catch((e) => {
-            console.log("Failed verify...");
-            return e;
-            })
-        },
+            const config = {
+                headers: { Authorization: `Bearer ${access}` },
+            };
+         
+            return instance.get(`users/me?username=`+ username, config).then((res) => {
+                console.log("Otvet"+res);
+                console.log("Account info is received successfully");
+                return res;
+              })
+              .catch((e) => {
+                console.log("Failed receiving data...");
+                return e; })
+    },
 
-    manager(name, access) {
-        return instance.get(`users/manager/`, {name, access})
-        .catch((e) => {
-            console.log("Failed verify...");
-            return e;
-            })
-        },
+    manager(id, access) {
+        const config = {
+            headers: { 
+                'Authorization': `Bearer ${access}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
+              },
+            };
+            return instance.get(`users/manager?name=` + id, config).then((res) => {
+                console.log("Otvet"+res);
+                console.log("Account info is received successfully");
+                return res;
+              })
+              .catch((e) => {
+                console.log("Failed receiving data...");
+                console.log(id, access)
+                console.log(e)
+                return e; })
+    },
 
     client(name, access) {
-        return instance.get(`users/client/`, {name, access})
+        return instance.get(`users/client?name`+name, {name, access})
         .catch((e) => {
             console.log("Failed verify...");
             return e;
@@ -53,7 +71,7 @@ export const authAPI = {
         },
 
     servicecompany(name, access) {
-        return instance.get(`users/servicemanager/?name=`, {name, access})
+        return instance.options(`users/servicemanager/?name=`+name, {name, access})
             .catch((e) => {
                 console.log("Failed verify...");
                 return e;

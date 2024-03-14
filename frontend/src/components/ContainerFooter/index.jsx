@@ -13,7 +13,7 @@ class FooterContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
     isAuth: state.token.isAuth,
-    login: state.token.login
+    login: state.token.username
 });
 
 connect(mapStateToProps)(FooterContainer)
