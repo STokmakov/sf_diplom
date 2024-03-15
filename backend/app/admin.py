@@ -45,11 +45,11 @@ class Car(admin.ModelAdmin):
     list_display = ('serialNumberCar', 'vehicleModel', 'engineModel', 'serialNumberEngine', 'transmissionModel',
                     'serialNumberTransmission', 'driveAxleModel', 'serialNumberDriveAxle', 'steeringAxleModel',
                      'serialNumberSteeringAxle', 'supplyContract', 'shippingDate', 'consignee', 'deliveryAddress',
-                     'equipment', 'client', 'serviceCompany')
+                     'equipment')
     fields = ['serialNumberCar', 'vehicleModel', 'engineModel', 'serialNumberEngine', 'transmissionModel',
               'serialNumberTransmission', 'driveAxleModel', 'serialNumberDriveAxle', 'steeringAxleModel',
                      'serialNumberSteeringAxle', 'supplyContract', 'shippingDate', 'consignee', 'deliveryAddress',
-                     'equipment', 'client', 'serviceCompany']
+                     'equipment']
 
 
 

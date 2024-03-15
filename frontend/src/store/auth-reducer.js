@@ -3,9 +3,8 @@ const cookie = require('cookie');
 
 
 const SET_USER_LOGIN = 'SET_USER_LOGIN'
-const SET_USER_DATA = 'SET_USER_DATA'
-const SET_USER_ID = 'SET_USER_ID'
-const SET_USER_ROLE = 'SET_USER_ROLE'
+const SET_USER_REFRESH = 'SET_USER_REFRESH'
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 let initialState = {
     username: null,
@@ -23,17 +22,12 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 ...action.payload
             }
-        case 'SET_USER_DATA':
+        case 'SET_USER_REFRASH':
             return {
                 ...state,
                 ...action.payload
             }
-        case 'SET_USER_ID':
-            return {
-                ...state,
-                ...action.payload
-            }
-        case 'SET_USER_ROLE':
+        case 'SET_USER_PROFILE':
             return {
                 ...state,
                 ...action.payload
@@ -50,18 +44,14 @@ export const setAuthUserLogin =
 
 export const setRefresh =
     (access) => ({
-        type: SET_USER_DATA, payload: {access}
+        type: SET_USER_REFRESH, payload: {access}
     })
 
-export const setUserID =
-    (id) => ({
-        type: SET_USER_ID, payload: {id}
+export const setUserProfile =
+    (id, role) => ({
+        type: SET_USER_PROFILE, payload: {id, role}
 })
 
-export const setUserRole =
-    (role) => ({
-        type: SET_USER_ROLE, payload: {role}
-    })
   
 export const getAuthUserLogin = (username, access, refresh) => async (dispatch) => {
     dispatch(setAuthUserLogin(username, access, refresh, true, null, null));
@@ -71,80 +61,29 @@ export const getRefresh = (access) => async (dispatch) => {
     dispatch(setRefresh(access));
     }  
 
-export const getUserID = (id) => async (dispatch) => {
-    dispatch(setUserID(id));
+export const getUserProfile = (id, role) => async (dispatch) => {
+    dispatch(setUserProfile(id, role));
     } 
-
-export const getUserRole = (role) => async (dispatch) => {
-    dispatch(setUserRole(role));
-    } 
-
 
 export const login = (username, password) => async (dispatch) => {
   let response = await authAPI.login(username, password);
     if (response.status === 200) {
         let { access, refresh } = response.data
         dispatch(getAuthUserLogin(username, access, refresh))
-        let responseid = await authAPI.me(username, access);
-            if (responseid.status === 200) {
-                let id = 0;
-                id = responseid.data[0].id
+        let responseprofile = await authAPI.me(username, access);
+            if (responseprofile.status === 200) {
+                let { id=0, role } = responseprofile.data[0]
                     if (id != 0) {
-                        dispatch(getUserID(id))
-                        let responsemanager = await authAPI.manager(id, access);
-                          if (responsemanager.status === 200) {
-                            let role  = 'manager';
-                            let role_id = null;
-                            role_id = responsemanager.data
-                            console.log(responsemanager)
-                            console.log(role_id)
-                                if (role_id != 0) {
-                                    dispatch(getUserRole(role))
-                                    console.log(role)
-
-                                }
-                          else {
-                          console.log('no manager')
-                          }
+                        dispatch(getUserProfile(id, role))                            
                     }
             }
-        }
             else {
                 console.log('no id')
             }
-       
-        // let responseclient = await authAPI.client(id, access);
-        //     if (responseclient.status === 200) {
-        //         console.log(responseclient)
-        //         let role  = 'client'
-        //         console.log(role)
-        //     }
-        // let responseservicecompany = await authAPI.servicecompany(id, access);
-        //     if (responseservicecompany.status === 200) {
-        //         console.log(responseservicecompany) 
-        //         let role  = 'servicecompany'
-        //         console.log(role)
-        //     }
-   
+        
+        return "Добро пожаловать!"; 
+    }
 
-
-        // else {
-        //     let response = await authAPI.client(access);
-        //     if (response.status === 200) {
-        //         dispatch(getUser('client'))
-        //     }
-        //     else {
-        //         let response = await authAPI.servicecompany(access);
-        //         if (response.status === 200) {
-        //             dispatch(getUser('servicecompany'))
-        //         }
-            //     else {
-            //     return "Неверно введены имя и пароль! Попробуйте еще раз.";
-            //     }
-            // }
-        return "Добро пожаловать!";
-        }
-    
     else {
         return "Неверно введены имя и пароль! Попробуйте еще раз.";
     }
