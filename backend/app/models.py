@@ -17,6 +17,7 @@ class VehicleManager(models.Manager):
 
         return model
     
+    
 class VehicleModel(models.Model):
     '''Модель техники'''
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
@@ -32,7 +33,7 @@ class VehicleModel(models.Model):
         verbose_name_plural = 'Модели техники'
 
 
-class EngineModelManager(models.Manager):
+class EngineManager(models.Manager):
     '''Модель двигателя(менеджер)'''
     def create_enginemodel(self, name, description=None):
         if not name:
@@ -51,7 +52,7 @@ class EngineModel(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
     description = models.CharField(max_length=200, verbose_name='Описание', null=True, blank=True)
 
-    objects = EngineModelManager()
+    objects = EngineManager()
 
     def __str__(self):
         return f'{self.name}'
@@ -103,6 +104,7 @@ class DriveAxleManager(models.Manager):
         model.save(using=self._db)
 
         return model
+
 
 class DriveAxleModel(models.Model):
     '''Модель ведущего моста'''
@@ -163,6 +165,7 @@ class TypeOfMaintenanceManager(models.Manager):
 
         return model
     
+
 class TypeOfMaintenance(models.Model):
     '''Вид ТО'''
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
@@ -191,6 +194,7 @@ class OrganizationOfMaintenanceManager(models.Manager):
         model.save(using=self._db)
 
         return model
+
 
 class OrganizationOfMaintenance(models.Model):
     '''Организация, проводившая ТО'''
@@ -221,6 +225,7 @@ class FailureNodeManager(models.Manager):
 
         return model
 
+
 class FailureNode(models.Model):
     '''Узел отказа'''
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
@@ -234,6 +239,7 @@ class FailureNode(models.Model):
     class Meta:
         verbose_name = 'Узел отказа'
         verbose_name_plural = 'Узлы отказа'
+
 
 class RecoveryMethodManager(models.Manager):
     '''Способ востановления(менеджер)'''
@@ -313,6 +319,7 @@ class Maintenance(models.Model):
         verbose_name_plural = 'ТО'
         ordering = ['-dataOfMaintenance'] 
 
+
 # Сущность «Рекламации»
 class Complaint(models.Model):
     '''Рекламации'''
@@ -325,7 +332,6 @@ class Complaint(models.Model):
     restoreDate = models.DateField(verbose_name='Дата восстановления', null=False, blank=False)
     car = models.ForeignKey(Car, on_delete=models.CASCADE, verbose_name='Машина')
 
-
     def equipmentDowntime(self):
         return (self.restoreDate - self.dateOfRefusal).days
     
@@ -336,8 +342,6 @@ class Complaint(models.Model):
         verbose_name = 'Рекламации'
         verbose_name_plural = 'Рекламации'
         ordering = ['-dateOfRefusal']
-
-
 
 
                                      

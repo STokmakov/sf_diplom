@@ -1,34 +1,92 @@
 import React from "react";
-import styles from "./Header.module.css"
 
-import { Logo } from "@components/Logo";
-import InfoContainer  from "@components/Info";
-import logoImage from "@assets/images/Logo-image.svg";
-import { Menu } from "@components/Menu";
+import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 import { Login } from "@components/Login";
 import AccountContainer from "@components/Account";
+import logoImage from "@assets/images/Logo_1.svg";
 
 
 const Header = (props) => {
 
-
     return (
-        <header className={styles.header}>
-          <div className={styles.header_container}>
-          <div className={styles.header_container_logo}>
-            <Logo src={logoImage} alt="logoImage"/>
-          </div>
-            <Menu />
+      <Grid container spacing={2}>
+        <Grid xs={2}>
+            <Box
+              component="img"
+              sx={{
+                height: 233,
+                width: 350,
+                maxHeight: { xs: 133, md: 67 },
+                maxWidth: { xs: 150, md: 50 },
+                }}
+                alt="Logoimg."
+                src={logoImage}
+            /> 
+        </Grid>
 
-            {props.isAuth ? <InfoContainer /> : null }
+        <Grid xs={8}>
+            <Typography
+              variant="h8"
+              align="center"
+              noWrap
+              component="a"
+              // href="#app-bar-with-responsive-menu"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'PT Astra Sans Regular',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+                }}
+            > 
+                     +7-8352-20-12-09, telegram
+            </Typography> 
+           
+            
+            <Grid xs={8}>
+            <Typography
+              variant="h5"
+              align="center"
+              noWrap
+              component="a"
+              href="#app-bar-with-responsive-menu"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'PT Astra Sans Regular',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+                }}
+            > 
+                Электронная сервисная книжка "Мой Силант"
+            </Typography>  </Grid> </Grid>
+             <Grid xs={2}>
+          
+             {props.isAuth ? <AccountContainer /> : <Login />}
+           
+            
+           
+        </Grid>
+    </Grid>    
 
-
-
-            {props.isAuth ? <AccountContainer /> : <Login />}
-
-          </div>
-        </header>
-    )
+      )
 }
 
 export default Header;
+       
+
+                  
+                  
+                  
+
+
+        
+
+        

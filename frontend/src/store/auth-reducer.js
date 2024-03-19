@@ -1,5 +1,7 @@
 import { authAPI } from "../api/auth-api";
-const cookie = require('cookie');
+import { dataAPI } from "../api/data-api";
+import { getdataCarFull, getdataMaintenance, getdataComplaint } from "./app-reducer";
+// const cookie = require('cookie');
 
 
 const SET_USER_LOGIN = 'SET_USER_LOGIN'
@@ -52,7 +54,6 @@ export const setUserProfile =
         type: SET_USER_PROFILE, payload: {id, role}
 })
 
-  
 export const getAuthUserLogin = (username, access, refresh) => async (dispatch) => {
     dispatch(setAuthUserLogin(username, access, refresh, true, null, null));
     }   
@@ -80,10 +81,22 @@ export const login = (username, password) => async (dispatch) => {
             else {
                 console.log('no id')
             }
+        let responseCarFull = await dataAPI.getdataCarFull(access);
+            if (responseCarFull.status === 200) {
+                dispatch(getdataCarFull(responseCarFull.data));
+            };
+
+        let responseMaintenance = await dataAPI.getdataMaintenance(access);
+            if (responseMaintenance.status === 200) {
+                dispatch(getdataMaintenance(responseMaintenance.data));
+            };
         
+        let responseComplaint = await dataAPI.getdataComplaint(access);
+            if (responseComplaint.status === 200) {
+                dispatch(getdataComplaint(responseComplaint.data));
+            };    
         return "Добро пожаловать!"; 
     }
-
     else {
         return "Неверно введены имя и пароль! Попробуйте еще раз.";
     }

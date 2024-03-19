@@ -1,4 +1,4 @@
-import "@styles/App.css";
+import Box from '@mui/material/Box';
 
 import React, { Component, useState } from "react";
 import { Routes, Route } from 'react-router-dom';
@@ -10,8 +10,8 @@ import {compose} from "redux";
 import { store } from "./store/store";
 import {initializeApp} from "./store/app-reducer";
 
-import  HeaderContainer   from "@components/ContainerHeader/index";
-import { FooterContainer }  from "@components/ContainerFooter";
+import  HeaderContainer    from "@components/ContainerHeader";
+import  FooterContainer   from "@components/ContainerFooter";
 
 import  HomeContainer   from "@views/HomePage";
 
@@ -33,20 +33,42 @@ class App extends Component {
 
     render() {
 
-        return (
-                    <div className='app-wrapper'>
-                         <HeaderContainer/>
-                        <div className='app-wrapper-content'>
+        return ( 
+            <Box
+                sx={{
+                width: '100%',
+                height: '140px',
+                color: '#fff', '& > .MuiBox-root > .MuiBox-root': {
+                    p: 1,
+                    borderRadius: 2,
+                    fontSize: '0.875rem',
+                    fontWeight: '700',
+                    },
+                }}
+            >
+                <Box
+                    sx={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr',
+                    gap: 1,
+                    gridTemplateRows: '1fr auto 1fr',
+                    gridTemplateAreas: `"header"
+                                        "main  "
+                                        "footer"`,
+                    }}
+                >      
+                    <Box sx={{ gridArea: 'header', bgcolor: 'red.main' }}><HeaderContainer/></Box>
+                    <Box sx={{ gridArea: 'main', bgcolor: 'whiteantique.main' }}>
                         {this.props.isAuth}
                         <Routes> 
-                              <Route path="/" element={<HomeContainer />} /> 
-                              <Route path="/login" element={<LoginContainer />} />   
-            
+                            <Route path="/" element={<HomeContainer />} /> 
+                            <Route path="/login" element={<LoginContainer />} />   
                         </Routes>
-                      
-                        </div>
-                        <FooterContainer />  
-                    </div>
+                    </Box>
+                    <Box sx={{ gridArea: 'footer', bgcolor: 'red.main' }}><FooterContainer /></Box>
+                </Box>
+            </Box>
+            
         )
     }}
 

@@ -1,6 +1,5 @@
 import {instance} from "./api";
 
-
 export const authAPI = {
      
     login(username, password) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Footer } from "./Footer";
+import Footer from "./Footer";
 import {connect} from "react-redux";
 
 
@@ -12,9 +12,7 @@ class FooterContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    isAuth: state.token.isAuth,
-    login: state.token.username
+
 });
 
-connect(mapStateToProps)(FooterContainer)
-export {FooterContainer}
+export default connect(mapStateToProps)(FooterContainer)
