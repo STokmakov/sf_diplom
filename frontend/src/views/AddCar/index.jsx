@@ -3,15 +3,15 @@ import { Navigate } from "react-router-dom";
 
 import {reduxForm} from "redux-form";
 import {connect} from "react-redux";
-import {login} from "@store/auth-reducer";
 
-import AuthPage from "./AuthPage";
 
-const LoginReduxForm = reduxForm({form: 'login'})(AuthPage);
+import AddCarPage from "./AddCarPage";
 
-const Login = (props) => {
+const AddCarReduxForm = reduxForm({form: 'addcar'})(AddCarPage);
+
+const AddCar = (props) => {
   const onSubmit = (formData) => {
-      console.log(props.login(formData.username, formData.password).then(result => alert(result)));
+      // console.log(props.login(formData.username, formData.password).then(result => alert(result)));
       }
   
   if (props.isAuth) {
@@ -20,7 +20,7 @@ const Login = (props) => {
 
   return (
     <div>
-      <LoginReduxForm onSubmit={onSubmit} />
+      <AddCarReduxForm onSubmit={onSubmit} />
     </div>
 )}
 
@@ -28,4 +28,5 @@ const mapStateToProps = (state) => ({
   isAuth: state.token.isAuth
 })
 
-export default connect(mapStateToProps, {login})(Login)
+export default connect(mapStateToProps)(AddCar)
+

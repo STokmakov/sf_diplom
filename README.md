@@ -54,20 +54,50 @@ TransmissionModel.objects.create_transmission(name='Роботизированн
 TransmissionModel.objects.create_transmission(name='Вариативная (бесступенчатая) коробка переключения передач',description='Работа происходит за счет работоспособности двух разных шкивов, которые имеют коническую форму и имеют соединение с помощью цепи или ремня.')
 
 
-# модели управляемых мостов
-from app.models import SteeringAxleModel
-
-SteeringAxleModel.objects.create_steeringaxle(name='разрезной управляемый мост',description='мост, колёса которого имеют независимую подвеску')
-SteeringAxleModel.objects.create_steeringaxle(name='неразрезной управляемый мост',description='главная передача вместе с дифференциалом находятся в корпусе, к которому подсоединены или отлиты вместе с ним изначально два кожуха полуосей')
-
 # модели ведущих мостов
 from app.models import DriveAxleModel
 
 DriveAxleModel.objects.create_driveaxle(name='задний мост',description='агрегат колёсной или гусеничной машины, соединяющий между собой задние колёса одной оси')
 DriveAxleModel.objects.create_driveaxle(name='передний мост',description='комплекс узлов или отдельный агрегат шасси колёсной машины, соединяющий между собой передние колёса одной оси и служащий опорой передней части машины')
 
+
 # модели управляемых мостов
 from app.models import SteeringAxleModel
 
 SteeringAxleModel.objects.create_steeringaxle(name='разрезной управляемый мост',description='мост, колёса которого имеют независимую подвеску')
 SteeringAxleModel.objects.create_steeringaxle(name='неразрезной управляемый мост',description='главная передача вместе с дифференциалом находятся в корпусе, к которому подсоединены или отлиты вместе с ним изначально два кожуха полуосей')
+
+
+# Вид ТО
+from app.models import TypeOfMaintenance
+
+TypeOfMaintenance.objects.create_typeofmaintenance(name='плановое техническое обслуживание',description='технические работы по обслуживанию оборудования, постановка на которое осуществляется в соответствии с требованиями нормативно-технической или эксплуатационной документации.')
+TypeOfMaintenance.objects.create_typeofmaintenance(name='сезонное обслуживание',description='подготовка автомобиля к зимнему сезону или к лету. В этот вид входит и замена колес, то есть резины, а также незамерзающей жидкости для зимнего сезона.')
+
+
+# Организация, проводившая ТО
+from app.models import OrganizationOfMaintenance
+
+OrganizationOfMaintenance.objects.create_organizationofmaintenance(name='Первая организация',description='Основная организация проводящая ТО.')
+OrganizationOfMaintenance.objects.create_organizationofmaintenance(name='Вторая организация',description='Резервная организация проводящая ТО.')
+
+
+# Узел отказа
+from app.models import FailureNode
+
+FailureNode.objects.create_failurenode(name='Предупреждающие значки на приборной панели',description='Если вы все чаще видите мигающий значок Check Engine, то самое время проверить двигатель. А если загораются и другие индикаторы, то нужно как можно скорее ехать в автосервис на диагностику мотора автомобиля и других узлов. За диагностику вы заплатите намного меньше, чем за капитальный ремонт или замену ДВС.')
+FailureNode.objects.create_failurenode(name='Мотор «кушает» много масла и топлива',description='Если расход топливного масла и бензина/дизельного топлива возрос без объективных причин – это тревожный знак. Игнорировать это не стоит – расход будет только расти, ускорится и износ двигателя. постарайтесь как можно быстрее отправиться на СТО, чтобы определить и устранить признаки поломки двигателя автомобиля.')
+FailureNode.objects.create_failurenode(name='Перерасход технических жидкостей.',description='Владельцы подержанных иномарок не следят за уровнем тормозной жидкости, антифриза, фреона в кондиционере, масла в коробке передач, трансмиссионной жидкости и жидкости в гидроусилителе. И зря – проверять их уровень нужно регулярно, высокий расход и утечка – признаки неисправностей узлов авто.')
+FailureNode.objects.create_failurenode(name='Износ коробки передач.',description='Если «механику» еще можно реанимировать, то автоматические КПП не всегда поддаются ремонту при неисправностях. Стоимость новой коробки зачастую слишком высокая, а запчасть с разборки не прослужит долго.')
+
+
+# Способ востановления
+from app.models import RecoveryMethod
+
+RecoveryMethod.objects.create_recoverymethod(name='Замена неисправной детали',description='Покупка новой детали и замена')
+RecoveryMethod.objects.create_recoverymethod(name='Диагностика',description='За диагностику вы заплатите намного меньше, чем за капитальный ремонт или замену ДВС.')
+RecoveryMethod.objects.create_recoverymethod(name='Замена машины',description='Основные узлы авто сильно изношены, стоит задуматься о покупке новой машины.')
+
+
+
+

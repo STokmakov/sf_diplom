@@ -11,7 +11,7 @@ import { persistor, store } from '@store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     midnightblue: {
       main: '#163E6C',

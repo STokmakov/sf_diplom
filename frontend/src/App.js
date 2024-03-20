@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
-
-import React, { Component, useState } from "react";
+import React, { Component} from "react";
 import { Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 
@@ -14,8 +13,8 @@ import  HeaderContainer    from "@components/ContainerHeader";
 import  FooterContainer   from "@components/ContainerFooter";
 
 import  HomeContainer   from "@views/HomePage";
-
-import  LoginContainer  from "./views/AuthPage";
+import  AddCarContainer  from "@views/AddCar";
+import  LoginContainer  from "@views/AuthPage";
 
 
 export const withRouter = (Component) =>{
@@ -51,7 +50,7 @@ class App extends Component {
                     display: 'grid',
                     gridTemplateColumns: '1fr',
                     gap: 1,
-                    gridTemplateRows: '1fr auto 1fr',
+                    gridTemplateRows: '180px auto 80px',
                     gridTemplateAreas: `"header"
                                         "main  "
                                         "footer"`,
@@ -59,10 +58,11 @@ class App extends Component {
                 >      
                     <Box sx={{ gridArea: 'header', bgcolor: 'red.main' }}><HeaderContainer/></Box>
                     <Box sx={{ gridArea: 'main', bgcolor: 'whiteantique.main' }}>
-                        {this.props.isAuth}
+                        {this.props.isAuth} 
                         <Routes> 
                             <Route path="/" element={<HomeContainer />} /> 
-                            <Route path="/login" element={<LoginContainer />} />   
+                            <Route path="/login" element={<LoginContainer />} />  
+                            <Route path="/addcar" element={<AddCarContainer />} />  
                         </Routes>
                     </Box>
                     <Box sx={{ gridArea: 'footer', bgcolor: 'red.main' }}><FooterContainer /></Box>

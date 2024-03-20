@@ -13,32 +13,40 @@ const Header = (props) => {
 
     return (
       <Grid container spacing={2}>
-        <Grid xs={2}>
+        <Grid 
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        xs={2}>
             <Box
               component="img"
               sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 133, md: 67 },
-                maxWidth: { xs: 150, md: 50 },
+                height: 150,
+                width: 200,
+                maxHeight: { xs: 150, md: 100 },
+                maxWidth: { xs: 200, md: 100 },
                 }}
                 alt="Logoimg."
                 src={logoImage}
             /> 
         </Grid>
 
-        <Grid xs={8}>
+        <Grid 
+         display="flex"
+         justifyContent="center"
+         alignItems="center"
+         xs={7}>
             <Typography
-              variant="h8"
+              variant="h5"
               align="center"
               noWrap
               component="a"
-              // href="#app-bar-with-responsive-menu"
+              href="/"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
                 fontFamily: 'PT Astra Sans Regular',
-                fontWeight: 700,
+                fontWeight: 400,
                 letterSpacing: '.3rem',
                 color: 'inherit',
                 textDecoration: 'none',
@@ -46,15 +54,24 @@ const Header = (props) => {
             > 
                      +7-8352-20-12-09, telegram
             </Typography> 
-           
-            
-            <Grid xs={8}>
+            </Grid>
+             <Grid
+             justifyContent="center"
+             alignItems="center"
+             xs={3}>
+             {props.isAuth ? <AccountContainer /> : <Login />}
+        </Grid>
+        <Grid
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            xs={12}>
             <Typography
-              variant="h5"
+              variant="h4"
               align="center"
               noWrap
               component="a"
-              href="#app-bar-with-responsive-menu"
+              href="/"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -66,14 +83,7 @@ const Header = (props) => {
                 }}
             > 
                 Электронная сервисная книжка "Мой Силант"
-            </Typography>  </Grid> </Grid>
-             <Grid xs={2}>
-          
-             {props.isAuth ? <AccountContainer /> : <Login />}
-           
-            
-           
-        </Grid>
+            </Typography>  </Grid>
     </Grid>    
 
       )
