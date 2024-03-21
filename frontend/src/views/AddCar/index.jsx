@@ -11,7 +11,7 @@ const AddCarReduxForm = reduxForm({form: 'addcar'})(AddCarPage);
 
 const AddCar = (props) => {
   const onSubmit = (formData) => {
-      // console.log(props.login(formData.username, formData.password).then(result => alert(result)));
+      console.log('test');
       }
   
   if (props.isAuth) {
@@ -20,12 +20,24 @@ const AddCar = (props) => {
 
   return (
     <div>
-      <AddCarReduxForm onSubmit={onSubmit} />
+      <AddCarReduxForm
+       onSubmit={onSubmit}
+       data_vehicles={props.data_vehicles} 
+       data_engines={props.data_engines}
+       data_transmissions={props.data_transmissions}
+       data_driveaxles={props.data_driveaxles}
+       data_steeringaxles={props.data_steeringaxles}
+      />
     </div>
 )}
 
 const mapStateToProps = (state) => ({
-  isAuth: state.token.isAuth
+  isAuth: state.token.isAuth,
+  data_vehicles: state.app.dataVehicle,
+  data_engines: state.app.dataEngine,
+  data_transmissions: state.app.dataTransmission,
+  data_driveaxles: state.app.dataDriveAxle,
+  data_steeringaxles: state.app.dataSteeringAxle
 })
 
 export default connect(mapStateToProps)(AddCar)

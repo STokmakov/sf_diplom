@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Field} from "redux-form";
 import { Input } from "../../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
@@ -18,7 +17,7 @@ import {required} from "../../utils/validators/validators";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.primary" align="center" {...props}>
+    <Typography variant="body2" color="midnightblue.main" align="center" {...props}>
       {'Copyright ©  '}
       <Link color="inherit" href="http://127.0.0.1:8080/">
         "Мой Силант"
@@ -77,7 +76,6 @@ export default function AuthPage(props) {
             <Box component="form" noValidate onSubmit={props.handleSubmit} sx={{ mt: 2 }}>
               <Field 
                       margin="normal"
-                      fullWidth
                       placeholder={"username*"}
                       name={"username"}
                       validate={[required]}
@@ -89,7 +87,6 @@ export default function AuthPage(props) {
               />
               <Field  
                       margin="normal"
-                      fullWidth
                       placeholder={"password*"}
                       name={"password"}
                       type={"password"}
