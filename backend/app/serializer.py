@@ -5,47 +5,47 @@ from . import models
 class VehicleSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.VehicleModel
-    fields = ('name', 'description')
+    fields = ('id', 'name', 'description')
 
 class EngineSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.EngineModel
-    fields = ('name', 'description')
+    fields = ('id', 'name', 'description')
 
 class TransmissionSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.TransmissionModel
-    fields = ('name', 'description')
+    fields = ('id', 'name', 'description')
 
 class DriveAxleSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.DriveAxleModel
-    fields = ('name', 'description')
+    fields = ('id', 'name', 'description')
 
 class SteeringAxleSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.SteeringAxleModel
-    fields = ('name', 'description')
+    fields = ('id', 'name', 'description')
 
 class TypeOfMaintenanceSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.TypeOfMaintenance
-    fields = ('name', 'description')
+    fields = ('id', 'name', 'description')
 
 class OrganizationOfMaintenanceSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.OrganizationOfMaintenance
-    fields = ('name', 'description')
+    fields = ('id', 'name', 'description')
 
 class FailureNodeSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.FailureNode
-    fields = ('name', 'description')
+    fields = ('id', 'name', 'description')
 
 class RecoveryMethodSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.RecoveryMethod
-    fields = ('name', 'description')
+    fields = ('id', 'name', 'description')
 
 class CarSerializer(serializers.ModelSerializer):
   class Meta:

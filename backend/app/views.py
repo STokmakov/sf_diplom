@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions
 from . import serializer
@@ -82,13 +82,15 @@ class RecoveryMethod(ListAPIView):
     filterset_fields = ['name']
 
 
-class Car(ListAPIView):
+class Car(ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated|ReadOnly]
     serializer_class = serializer.CarSerializer
     queryset = models.Car.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['serialNumberCar', 'vehicleModel', 'engineModel', 'serialNumberEngine', 'transmissionModel', 'serialNumberTransmission',
                         'driveAxleModel', 'serialNumberDriveAxle', 'steeringAxleModel', 'serialNumberSteeringAxle']
+    
+  
 
 class CarFull(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]

@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import ClientProfile, ServiceCompanyProfile
-
+# from rest_framework.response import Response
 
 # Справочники
 class VehicleManager(models.Manager):
@@ -294,6 +294,12 @@ class Car(models.Model):
 
     def __str__(self):
         return f'{self.serialNumberCar}'
+    
+    # def post(self, request, *args, **kwargs):
+    #     serializer = serializer.CarSerializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data)
     
     class Meta:
         verbose_name = 'Машина'

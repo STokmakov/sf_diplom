@@ -71,7 +71,7 @@ export default function AuthPage(props) {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Вход
             </Typography>
             <Box component="form" noValidate onSubmit={props.handleSubmit} sx={{ mt: 2 }}>
               <Field 

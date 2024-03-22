@@ -11,7 +11,7 @@ const LoginReduxForm = reduxForm({form: 'login'})(AuthPage);
 
 const Login = (props) => {
   const onSubmit = (formData) => {
-      console.log(props.login(formData.username, formData.password).then(result => alert(result)));
+      console.log(props.login(formData.username, formData.password).then(result => console.log(result)));
       }
   
   if (props.isAuth) {

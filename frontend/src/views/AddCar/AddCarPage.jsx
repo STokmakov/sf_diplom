@@ -17,7 +17,8 @@ export default function AddCarPage(props) {
   const transmissions = props.data_transmissions
   const driveaxles = props.data_driveaxles
   const steeringaxles = props.data_steeringaxles
-
+  const clients = props.data_clients
+  const servicecompanys = props.data_servicecompanys
   return (
       <Grid container component="main" sx={{ height: '100%' }}>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -37,7 +38,7 @@ export default function AddCarPage(props) {
             >
               Добавить машину
             </Typography>
-
+            <Box component="form" noValidate onSubmit={props.handleSubmit} sx={{ mt: 2 }}>
             <Typography
                   margin= "10px 0px 0px 0px"
                   fontFamily= "PT Astra Sans Regular"
@@ -71,7 +72,7 @@ export default function AddCarPage(props) {
                 >
                   <option></option>
                   {vehicles.map(item => (
-                  <option key={item.id} value={item.name}>{item.name}</option>
+                  <option key={item.id} value={item.id}>{item.name}</option>
                   ))}
                 </Field>
 
@@ -90,7 +91,7 @@ export default function AddCarPage(props) {
                 >
                   <option></option>
                   {engines.map(item => (
-                  <option key={item.id} value={item.name}>{item.name}</option>
+                  <option key={item.id} value={item.id}>{item.name}</option>
                   ))}
                 </Field>
 
@@ -129,7 +130,7 @@ export default function AddCarPage(props) {
                 >
                   <option></option>
                   {transmissions.map(item => (
-                  <option key={item.id} value={item.name}>{item.name}</option>
+                  <option key={item.id} value={item.id}>{item.name}</option>
                   ))}
                 </Field>
 
@@ -168,7 +169,7 @@ export default function AddCarPage(props) {
                 >
                   <option></option>
                   {driveaxles.map(item => (
-                  <option key={item.id} value={item.name}>{item.name}</option>
+                  <option key={item.id} value={item.id}>{item.name}</option>
                   ))}
                 </Field>
 
@@ -207,7 +208,7 @@ export default function AddCarPage(props) {
                 >
                   <option></option>
                   {steeringaxles.map(item => (
-                  <option key={item.id} value={item.name}>{item.name}</option>
+                  <option key={item.id} value={item.id}>{item.name}</option>
                   ))}
                 </Field> 
 
@@ -339,13 +340,38 @@ export default function AddCarPage(props) {
                       className={styles.formSelect}
                 >
                   <option></option>
-                  {clients.map(item => (
-                  <option key={item.id} value={item.name}>{item.name}</option>
-                  ))}
+                  {clients.map(item =>  ( 
+                  <option key={item.id} value={item.id}> {item.user.username} </option>
+                    )) }
                 </Field> 
 
-
-
+                <Typography
+                  margin= "10px 0px 0px 0px"
+                  fontFamily= "PT Astra Sans Regular"
+                >
+                  Сервисная компания
+                </Typography>
+                <Field 
+                      name="serviceCompany"
+                      component="select"
+                      autoFocus
+                      className={styles.formSelect}
+                >
+                  <option></option>
+                  {servicecompanys.map(item =>  ( 
+                  <option key={item.id} value={item.id}> {item.user.username} </option>
+                    )) }
+                </Field> 
+                <Button
+                color="red"
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Сохранить
+               </Button>
+              </Box>
             </Box>
         </Grid>
 

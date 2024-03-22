@@ -9,7 +9,10 @@ const SET_DATA_TYPEOFMAITENANCE = 'SET_DATA_TYPEOFMAITENANCE'
 const SET_DATA_ORGANIZATIONOFMAITENANCE = 'SET_DATA_ORGANIZATIONOFMAITENANCE'
 const SET_DATA_FAILURENODE = 'SET_DATA_FAILURENODE'
 const SET_DATA_RECOVERYMETHOD = 'SET_DATA_RECOVERYMETHOD'
-const SET_DATA_CAR = 'SET_DATA_RECOVERYMETHOD'
+const SET_DATA_CLIENT = 'SET_DATA_CLIENT'
+const SET_DATA_SERVICECOMPANY = 'SET_DATA_SERVICECOMPANY'
+const SET_DATA_CAR = 'const SET_DATA_CAR'
+const SET_DATA_ADDCAR = 'SET_DATA_ADDCAR'
 const SET_DATA_MAINTENANCE = 'SET_DATA_MAINTENANCE'
 const SET_DATA_COMPLAINT = 'SET_DATA_COMPLAINT'
 
@@ -24,6 +27,8 @@ let initialState = {
     dataOrganizationOfMaintenance: null,
     dataFailureNode: null,
     dataRecoveryMethod: null,
+    dataClient: null,
+    dataServiceCompany: null,
     dataCar: null,
     dataMaintenance: null,
     dataComplaint: null
@@ -77,6 +82,16 @@ const appReducer = (state = initialState, action) => {
                 ...action.payload
                 }
         case SET_DATA_RECOVERYMETHOD:
+            return {
+                ...state,
+                ...action.payload
+                }
+        case SET_DATA_SERVICECOMPANY:
+                    return {
+                        ...state,
+                        ...action.payload
+                        }
+        case SET_DATA_CLIENT:
             return {
                 ...state,
                 ...action.payload
@@ -185,6 +200,24 @@ export const getdataRecoveryMethod = (dataRecoveryMethod) => async (dispatch) =>
     dispatch(setdataRecoveryMethod(dataRecoveryMethod));
     }
 
+export const setdataServiceCompany =
+    (dataServiceCompany) => ({
+        type: SET_DATA_SERVICECOMPANY, payload: {dataServiceCompany}
+})
+
+export const getdataServiceCompany = (dataServiceCompany) => async (dispatch) => {
+    dispatch(setdataServiceCompany(dataServiceCompany));
+    }
+
+export const setdataClient =
+    (dataClient) => ({
+        type: SET_DATA_CLIENT, payload: {dataClient}
+})
+
+export const getdataClient = (dataClient) => async (dispatch) => {
+    dispatch(setdataClient(dataClient));
+    }
+
 export const setdataCar =
     (dataCar) => ({
         type: SET_DATA_CAR, payload: {dataCar}
@@ -267,6 +300,16 @@ export const initializeApp = () => async (dispatch) => {
         dispatch(getdataRecoveryMethod(responseRecoveryMethod.data));
     };
 
+    let responseServiceCompany = await dataAPI.getdataServiceCompany();
+    if (responseServiceCompany.status === 200) {
+        dispatch(getdataServiceCompany(responseServiceCompany.data));
+    };
+
+    let responseClient = await dataAPI.getdataClient();
+    if (responseClient.status === 200) {
+        dispatch(getdataClient(responseClient.data));
+    };
+
     let responseCar = await dataAPI.getdataCar();
     if (responseCar.status === 200) {
         dispatch(getdataCar(responseCar.data));
@@ -276,6 +319,16 @@ export const initializeApp = () => async (dispatch) => {
         return "Ок!";
     }
 
+export const addcar = (access, refresh, serialNumberCar, vehicleModel, engineModel, serialNumberEngine,
+        transmissionModel, serialNumberTransmission, driveAxleModel, serialNumberDriveAxle, 
+        steeringAxleModel, serialNumberSteeringAxle, supplyContract, shippingDate,
+        consignee, deliveryAddress, equipment, client, serviceCompany) => async (dispatch) => {
+    let responseaddcar = await dataAPI.setaddcar(access, refresh, serialNumberCar, vehicleModel, engineModel, serialNumberEngine,
+            transmissionModel, serialNumberTransmission, driveAxleModel, serialNumberDriveAxle, 
+            steeringAxleModel, serialNumberSteeringAxle, supplyContract, shippingDate,
+            consignee, deliveryAddress, equipment, client, serviceCompany);
+        if (response.status === 200) { console.log('addcar')}
+    }
 
 
 export default appReducer;
