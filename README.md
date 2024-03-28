@@ -23,6 +23,11 @@
   npm start
 
 # Пользователи:
+# Administrator -
+имя: admin  
+
+пароль: admin
+
 
 # Менеджер -
 имя: man 
