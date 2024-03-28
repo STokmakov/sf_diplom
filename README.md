@@ -8,27 +8,35 @@
 
   # установка и запуск backend
   cd backend
+  
   .\venv\Scripts\Activate.ps1
+  
   pip install requirements.txt
+  
   python manage.py runserver
 
   # установка и запуск frontend
   cd frontend
+  
   npm install
+  
   npm start
 
 # Пользователи:
 
 # Менеджер -
 имя: man 
+
 пароль: man
 
 # Клиент -
 имя: user
+
 пароль: user
 
 # Сервисная компания -
 имя: company
+
 пароль: company
 
 
