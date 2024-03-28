@@ -1,7 +1,38 @@
 # sf_diplom
 Дипломный проект: реальный кейс от компании «Силант»
 
+# Установка 
+  git clone https://github.com/STokmakov/sf_diplom.git
 
+  cd sf_diplom
+
+  # установка и запуск backend
+  cd backend
+  .\venv\Scripts\Activate.ps1
+  pip install requirements.txt
+  python manage.py runserver
+
+  # установка и запуск frontend
+  cd frontend
+  npm install
+  npm start
+
+# Пользователи:
+
+# Менеджер -
+имя: man 
+пароль: man
+
+# Клиент -
+имя: user
+пароль: user
+
+# Сервисная компания -
+имя: company
+пароль: company
+
+
+## Пример настройки БД при ее создании ##
 # Работа с БД
 
 # 'миграции'
@@ -18,7 +49,7 @@ python manage.py createsuperuser
 python manage.py shell 
 
 from users.models import UserAccount
-UserAccount.objects.create_user(username='manager',password='manager',role='MANAGER')
+UserAccount.objects.create_user(username='man',password='man',role='MANAGER')
 UserAccount.objects.create_user(username='user',password='user',role='CLIENT')
 UserAccount.objects.create_user(username='company',password='company',role='SERVICECOMPANY')
 

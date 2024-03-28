@@ -1,4 +1,6 @@
 import { dataAPI } from "../api/data-api";
+// import {verify, refresh, logout} from "./auth-reducer";
+import authReducer, { verify, refresh, logout } from "./auth-reducer";
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 const SET_DATA_VEHICLE = 'SET_DATA_VEHICLE'
 const SET_DATA_ENGINE = 'SET_DATA_ENGINE'
@@ -12,9 +14,10 @@ const SET_DATA_RECOVERYMETHOD = 'SET_DATA_RECOVERYMETHOD'
 const SET_DATA_CLIENT = 'SET_DATA_CLIENT'
 const SET_DATA_SERVICECOMPANY = 'SET_DATA_SERVICECOMPANY'
 const SET_DATA_CAR = 'const SET_DATA_CAR'
-const SET_DATA_ADDCAR = 'SET_DATA_ADDCAR'
 const SET_DATA_MAINTENANCE = 'SET_DATA_MAINTENANCE'
 const SET_DATA_COMPLAINT = 'SET_DATA_COMPLAINT'
+const SET_DATA_SEARCH = 'SET_DATA_SEARCH'
+const SET_DATA_EXIT = 'SET_DATA_EXIT'
 
 let initialState = {
     initialized: false,
@@ -31,7 +34,8 @@ let initialState = {
     dataServiceCompany: null,
     dataCar: null,
     dataMaintenance: null,
-    dataComplaint: null
+    dataComplaint: null,
+    dataSearch: null,
 };
 
 const appReducer = (state = initialState, action) => {
@@ -107,6 +111,16 @@ const appReducer = (state = initialState, action) => {
                 ...action.payload
                 }
         case SET_DATA_COMPLAINT:
+            return {
+                ...state,
+                ...action.payload
+                }
+        case SET_DATA_SEARCH:
+            return {
+                ...state,
+                ...action.payload
+                }
+        case SET_DATA_EXIT:
             return {
                 ...state,
                 ...action.payload
@@ -254,7 +268,21 @@ export const getdataComplaint = (dataComplaint) => async (dispatch) => {
     dispatch(setdataComplaint(dataComplaint));
     }
 
-export const initializeApp = () => async (dispatch) => {
+export const setdataExit =
+    ( initialized, dataVehicle, dataEngine, dataTransmission,
+        dataDriveAxle, dataSteeringAxle, dataTypeOfMaintenance, dataOrganizationOfMaintenance,
+        dataFailureNode, dataRecoveryMethod, dataClient, dataServiceCompany, dataCar, dataMaintenance,
+        dataComplaint, dataSearch ) => ({
+        type: SET_DATA_EXIT, payload: {initialized, dataVehicle, dataEngine, dataTransmission,
+            dataDriveAxle, dataSteeringAxle, dataTypeOfMaintenance, dataOrganizationOfMaintenance,
+            dataFailureNode, dataRecoveryMethod, dataClient, dataServiceCompany, dataCar, dataMaintenance,
+            dataComplaint, dataSearch}
+})
+
+
+
+export const initializeApp = (access) => async (dispatch) => {
+    console.log(access)
     let responseVehicle = await dataAPI.getdataVehicle();
     if (responseVehicle.status === 200) {
         dispatch(getdataVehicle(responseVehicle.data));
@@ -315,20 +343,75 @@ export const initializeApp = () => async (dispatch) => {
         dispatch(getdataCar(responseCar.data));
     };
 
+    if (access !== undefined && access !== null  ){
+        let responseCarFull = await dataAPI.getdataCarFull(access);
+        if (responseCarFull.status === 200) {
+            console.log('car')
+            dispatch(getdataCarFull(responseCarFull.data));
+        };
+
+    let responseMaintenance = await dataAPI.getdataMaintenance(access);
+        if (responseMaintenance.status === 200) {
+            console.log('maintenance')
+            dispatch(getdataMaintenance(responseMaintenance.data));
+        };
+    
+    let responseComplaint = await dataAPI.getdataComplaint(access);
+        if (responseComplaint.status === 200) {
+            console.log('complaint')
+            dispatch(getdataComplaint(responseComplaint.data));
+        };  
+
+    }
+      
+
         dispatch(initializedSuccess());
         return "Ок!";
     }
 
-export const addcar = (access, refresh, serialNumberCar, vehicleModel, engineModel, serialNumberEngine,
+
+export const addcar = (access, refreshznach, serialNumberCar, vehicleModel, engineModel, serialNumberEngine,
         transmissionModel, serialNumberTransmission, driveAxleModel, serialNumberDriveAxle, 
         steeringAxleModel, serialNumberSteeringAxle, supplyContract, shippingDate,
         consignee, deliveryAddress, equipment, client, serviceCompany) => async (dispatch) => {
-    let responseaddcar = await dataAPI.setaddcar(access, refresh, serialNumberCar, vehicleModel, engineModel, serialNumberEngine,
+
+        let responseaddcar = dataAPI.setaddcar(access, refreshznach, serialNumberCar, vehicleModel, engineModel, serialNumberEngine,
             transmissionModel, serialNumberTransmission, driveAxleModel, serialNumberDriveAxle, 
             steeringAxleModel, serialNumberSteeringAxle, supplyContract, shippingDate,
             consignee, deliveryAddress, equipment, client, serviceCompany);
-        if (response.status === 200) { console.log('addcar')}
-    }
+            dispatch(initializeApp(access))
+      }
 
+export const addmaintenance = (access, refreshznach, typeOfMaintenance, dataOfMaintenance, operatingTime, workOrderNumber,
+        workOrderDate, organizationOfMaintenance, car, serviceCompany, 
+        ) => async (dispatch) => {
+
+        let responseaddcar = dataAPI.setaddmaintenance(access, refreshznach, typeOfMaintenance, dataOfMaintenance, operatingTime, workOrderNumber,
+            workOrderDate, organizationOfMaintenance, car, serviceCompany);
+            dispatch(initializeApp(access))
+      }
+
+export const addcomplaint = (access, refreshznach, dateOfRefusal, operatingTime, failureNode, descriptionOfFailure,
+    recoveryMethod, sparePartsUsed, restoreDate, car, 
+        ) => async (dispatch) => {
+
+        let responseaddcar = dataAPI.setaddcomplaint(access, refreshznach, dateOfRefusal, operatingTime, failureNode, descriptionOfFailure,
+            recoveryMethod, sparePartsUsed, restoreDate, car);
+            dispatch(initializeApp(access))
+      }
+    
+
+export const setSearch =
+    (dataSearch) => ({
+        type: SET_DATA_SEARCH, payload: {dataSearch}
+        })
+
+export const search = (search) => async (dispatch) => {
+    let responseSearch = await dataAPI.getSearch(search);
+      if (responseSearch.status === 200) {
+        console.log(responseSearch)
+        dispatch(setSearch(responseSearch.data));
+      }
+                }
 
 export default appReducer;

@@ -8,7 +8,7 @@ const Login = () => {
         <div className={css.login}>
             <div className={css.login_container}>
     
-                <NavLink to="/login" className={css.login_container_log}>Войти</NavLink>
+                <NavLink to="/login" className={css.login_container_log}>Вход</NavLink>
             </div>
         </div>
     )

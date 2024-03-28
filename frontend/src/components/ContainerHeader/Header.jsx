@@ -17,7 +17,8 @@ const Header = (props) => {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        xs={2}>
+        xs={2}
+        >
             <Box
               component="img"
               sx={{
@@ -35,7 +36,8 @@ const Header = (props) => {
          display="flex"
          justifyContent="center"
          alignItems="center"
-         xs={7}>
+         xs={2}
+         md={7}>
             <Typography
               variant="h5"
               align="center"
@@ -56,6 +58,7 @@ const Header = (props) => {
             </Typography> 
             </Grid>
              <Grid
+             display="flex"
              justifyContent="center"
              alignItems="center"
              xs={3}>

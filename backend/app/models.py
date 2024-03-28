@@ -295,12 +295,7 @@ class Car(models.Model):
     def __str__(self):
         return f'{self.serialNumberCar}'
     
-    # def post(self, request, *args, **kwargs):
-    #     serializer = serializer.CarSerializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
-    #     return Response(serializer.data)
-    
+  
     class Meta:
         verbose_name = 'Машина'
         verbose_name_plural = 'Машины'

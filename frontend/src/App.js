@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import React, { Component} from "react";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route,  Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 
 import {connect, Provider} from "react-redux";
@@ -13,7 +13,11 @@ import  HeaderContainer    from "@components/ContainerHeader";
 import  FooterContainer   from "@components/ContainerFooter";
 
 import  HomeContainer   from "@views/HomePage";
-import  AddCarContainer  from "@views/AddCar";
+import  ComplaintContainer   from "@views/ComplaintPage";
+import MaintenanceContainer from "@views/MaintenancePage";
+import  AddCarContainer  from "@views/AddCarPage";
+import AddMaintenancePage from './views/AddMaintenancePage';
+import AddComplaint from './views/AddComplaintPage';
 import  LoginContainer  from "@views/AuthPage";
 
 
@@ -62,7 +66,11 @@ class App extends Component {
                         <Routes> 
                             <Route path="/" element={<HomeContainer />} /> 
                             <Route path="/login" element={<LoginContainer />} />  
-                            <Route path="/addcar" element={<AddCarContainer />} />  
+                            {this.props.isAuth && <Route path="/rec" element={<ComplaintContainer />} />  }
+                            {this.props.isAuth && <Route path="/to" element={<MaintenanceContainer />} />  }
+                            {this.props.role==='MANAGER' && <Route path="/addcar" element={<AddCarContainer />} />  }
+                            {(this.props.role==='MANAGER' || this.props.role==='CLIENT' || this.props.role==='SERVICECOMPANY') && <Route path="/addto" element={<AddMaintenancePage />} />  }
+                            {(this.props.role==='MANAGER' || this.props.role==='SERVICECOMPANY') && <Route path="/addrec" element={<AddComplaint />} />  } 
                         </Routes>
                     </Box>
                     <Box sx={{ gridArea: 'footer', bgcolor: 'red.main' }}><FooterContainer /></Box>
@@ -74,7 +82,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
     initialized: state.app.initialized,
-    isAuth: state.token.isAuth
+    isAuth: state.token.isAuth,
+    role: state.token.role
 })
 
 let AppContainer = compose(

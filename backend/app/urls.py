@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import Vehicle, Engine, Transmission, DriveAxle, SteeringAxle, TypeOfMaintenance, OrganizationOfMaintenance, FailureNode, \
-RecoveryMethod, Car, CarFull, Maintenance, Complaint
+RecoveryMethod, Car, CarFull, CarAdd, Maintenance, MaintenanceAdd, Complaint, ComplaintAdd
 
 urlpatterns = [
     path('datavehicle', Vehicle.as_view()),
@@ -13,7 +13,10 @@ urlpatterns = [
     path('datafailurenode', FailureNode.as_view()),
     path('datarecoverymethod', RecoveryMethod.as_view()),
     path('datacar', Car.as_view()),
+    path('datacaradd', CarAdd.as_view()),
     path('datacarfull', CarFull.as_view()),
     path('datamaintenance', Maintenance.as_view()),
+    path('datamaintenanceadd', MaintenanceAdd.as_view()),
     path('datacomplaint', Complaint.as_view()),
+    path('datacomplaintadd', ComplaintAdd.as_view()),
 ]

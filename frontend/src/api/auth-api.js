@@ -11,17 +11,39 @@ export const authAPI = {
     },
     
     refresh(refresh) {
-        return instance.post(`token/refresh`, {refresh})
+
+        return instance.post(`token/refresh/`, {refresh}).then((res) => {
+            if (response.status === 200) {
+                dispatch(getRefresh(res.data.access))
+                return res;
+            }    
+            
+            else if (response.status === 401) {
+                
+                return res;
+            }
+            else {
+                return "Error";
+            }
+          })
         .catch((e) => {
+            console.log({refresh});
             console.log("Failed refresh...");
+            console.log(e);
             return e;
             })
         },
     
-    verify(access) {
-        return instance.post(`token/verify`, {access})
+    verify(token) {
+        return instance.post(`token/verify/`, {token}).then((res) => {
+            console.log("Otvetverify="+res);
+            console.log(res);
+            return res;
+          })
         .catch((e) => {
+            console.log('token='+token)
             console.log("Failed verify...");
+            console.log(e)
             return e;
             })
         },

@@ -15,29 +15,24 @@ function Footer() {
     gridTemplateRows: '1fr',
     gridTemplateAreas: `"footer1 footer2"`,
     }}
+    
     >  
-    {/* <Box
-      
-    > */}
+
    <Grid 
       display="flex"
       justifyContent="center"
       alignItems="center"
       gridArea= 'footer1'
-      xs={2}>
+      xs={2}
+      >
             <Typography
-             
-             
+
               variant="h6"
-              // noWrap
-              // component="a"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
                 fontFamily: 'PT Astra Sans Regular',
-                // fontWeight: 700,
                 letterSpacing: '.3rem',
-                // color: 'inherit',
                 }}
             > 
                      +7-8352-20-12-09, telegram
@@ -48,7 +43,7 @@ function Footer() {
     justifyContent="center"
     alignItems="center"
     gridArea= 'footer2'
-    xs={10}>
+    xs={10} >
             <Typography
               variant="h4"
               sx={{
@@ -63,8 +58,6 @@ function Footer() {
             </Typography> 
             </Grid>
       </Box>
-
-    
   );
 }
 

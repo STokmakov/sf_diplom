@@ -82,13 +82,22 @@ class RecoveryMethod(ListAPIView):
     filterset_fields = ['name']
 
 
-class Car(ListCreateAPIView):
+class Car(ListAPIView):
     permission_classes = [permissions.IsAuthenticated|ReadOnly]
     serializer_class = serializer.CarSerializer
     queryset = models.Car.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['serialNumberCar', 'vehicleModel', 'engineModel', 'serialNumberEngine', 'transmissionModel', 'serialNumberTransmission',
+    filterset_fields = ['id','serialNumberCar', 'vehicleModel', 'engineModel', 'serialNumberEngine', 'transmissionModel', 'serialNumberTransmission',
                         'driveAxleModel', 'serialNumberDriveAxle', 'steeringAxleModel', 'serialNumberSteeringAxle']
+
+class CarAdd(ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = serializer.CarAddSerializer
+    queryset = models.Car.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['serialNumberCar', 'vehicleModel', 'engineModel', 'serialNumberEngine', 'transmissionModel', 'serialNumberTransmission',
+                        'driveAxleModel', 'serialNumberDriveAxle', 'steeringAxleModel', 'serialNumberSteeringAxle', 'supplyContract', 
+                        'shippingDate', 'consignee', 'deliveryAddress', 'equipment', 'client', 'serviceCompany']
     
   
 
@@ -110,10 +119,27 @@ class Maintenance(ListAPIView):
     filterset_fields = ['typeOfMaintenance', 'dataOfMaintenance', 'operatingTime', 'workOrderNumber', 'workOrderDate', 
                         'organizationOfMaintenance', 'car', 'serviceCompany']
 
+class MaintenanceAdd(ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = serializer.MaintenanceAddSerializer
+    queryset = models.Maintenance.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['typeOfMaintenance', 'dataOfMaintenance', 'operatingTime', 'workOrderNumber', 'workOrderDate', 
+                        'organizationOfMaintenance', 'car', 'serviceCompany']
+
+
 
 class Complaint(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializer.ComplaintSerializer
+    queryset = models.Complaint.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['dateOfRefusal', 'operatingTime', 'failureNode', 'descriptionOfFailure', 'recoveryMethod', 'sparePartsUsed',
+                       'restoreDate', 'car']
+    
+class ComplaintAdd(ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = serializer.ComplaintAddSerializer
     queryset = models.Complaint.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['dateOfRefusal', 'operatingTime', 'failureNode', 'descriptionOfFailure', 'recoveryMethod', 'sparePartsUsed',
